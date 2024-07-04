@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     'accounts',
     'control',
     'main',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
 ]
 
 MIDDLEWARE = [
@@ -110,9 +113,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
