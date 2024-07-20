@@ -3,12 +3,14 @@ from accounts.models import CustomUser as Customer
 
 # Create your models here 
 class Shipment(models.Model):
+    STATUS = [('In Transit', 'In Transit'), ('Delivered', 'Delivered')]
+
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     origin = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
-    departure_date = models.DateTimeField()
+    departure_date = models.DateTimeField(auto_now_add=True)
     arrival_date = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=50, choices=[('In Transit', 'In Transit'), ('Delivered', 'Delivered')])
+    status = models.CharField(max_length=50, choices=STATUS, default='In Transit')
 
     def __str__(self):
         return f'Shipment {self.id} from {self.origin} to {self.destination}'

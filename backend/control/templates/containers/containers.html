@@ -1,0 +1,121 @@
+{% extends '../dashboard.html' %}
+
+{% block content %}
+<div id="content" class="can_have_sidenav">
+    <div class="p-3">
+        {% block items %}
+        <h3 class="fw-lighter small"># Containers</h3>
+        <div class="row">
+            <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+                {% if containers %}
+                <div class="card">
+                    <h5 class="card-header">Containers</h5>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Container ID</th>
+                                        <th scope="col">Shipment</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Weight</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for container in containers %}
+                                    <tr>
+                                        <td>{{container.container_id}}</td>
+                                        <td>{{container.shipment}}</td>
+                                        <td>{{container.shipment.customer}}</td>
+                                        <td>{{container.type}}</td>
+                                        <td>{{container.weight}}</td>
+                                        <td>
+                                            <a href="{% url 'update_container' container.id %}"
+                                                class="btn btn-sm btn-outline-primary">Update</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'delete_container' container.id %}"
+                                                class="btn btn-sm btn-outline-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {% comment %} pagination {% endcomment %}
+                        <div class='pagination justify-content-center'>
+                            {% if page_obj.has_previous %}
+                            <a href='{% url "user_list" %}?page={{ page_obj.previous_page_number }}'
+                                class="text-decoration-none">Previous </a>
+                            {% endif %}
+
+                            <span class='mx-4'>
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                            </span>
+
+                            {% if page_obj.has_next %}
+                            <a href='{ url "user_list" }?page={{ page_obj.next_page_number }}'
+                                class="text-decoration-none"> Next</a>
+                            {% endif %}
+                        </div>
+                        <!-- END Pagination -->
+                    </div>
+                </div>
+                {% else %}
+                <div class="py-5">
+                    <p>
+                        There are no containers at the moment!
+                    </p>
+                    <a class="btn btn-sm btn-outline-primary" href="{% url 'add_container' %}">Add Container</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endblock %}
+             <div class="col">
+                <div class="card mb-3">
+                    <h5 class="card-header">Manage Containers</h5>
+                    <div class="card-body">
+                        <!-- <a class="btn btn-warning mb-3 w-100" href="{% url 'add_user' %}">Add Customer</a> -->
+                        <a class="btn btn-primary mb-3 w-100" href="{% url 'add_container' %}">Add</a>
+                        <a class="btn btn-info mb-3 w-100" href="{% url 'containers' %}">All</a>
+                        <a class="btn btn-info mb-3 w-100" href="{% url 'containers' %}">Recent</a>
+                        <a class="btn btn-primary mb-3 w-100" href="{% url 'user_list' %}">Users</a>
+                    </div>
+                </div>          
+
+                <!-- <div class="card mb-3">
+                    <h5 class="card-header">Recent</h5>
+                    {% if recent_shipments %}
+                    <div class="p-3">
+                        {% for user in recent_shipments %}
+
+                        <p>
+                            <strong>{{user.user_type}}</strong>: {{user.full_names}} <a href="">details.</a>
+                        </p>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <p class="fw-lighter">
+                            Recently added shipments will appear here!
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card">
+                    <h5 class="card-header">Chart</h5>
+                    <div class="card-body">
+                        <div class="card-text fw-lighter">Charts Will Appear Here!</div>
+                        <div id="traffic-chart"></div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
