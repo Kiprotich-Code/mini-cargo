@@ -13,19 +13,18 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Shipment ID</th>
-                                <th scope="col">Refference No</th>
+                                <th scope="col">Ref No</th>
                                 <th scope="col">Shipper</th>
                                 <th scope="col">Receiver</th>
                                 <th scope="col">Destination</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">#</th>
                                 <th scope="col">#</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for shipment in shipments %}
                             <tr>
-                                <td>{{shipment.id}}</td>
                                 <td>{{shipment.reference_no}}</td>
                                 <td>{{shipment.shipper}}</td>
                                 <td>{{shipment.receiver}}</td>
@@ -35,10 +34,10 @@
                                     <a href="{% url 'update_shipment' shipment.id %}"
                                         class="btn btn-sm btn-outline-primary">Update</a>
                                 </td>
-                                <!-- <td>
-                                    <a href="{% url 'delete_shipment' shipment.id %}"
-                                        class="btn btn-sm btn-outline-danger">Delete</a>
-                                </td> -->
+                                <td>
+                                    <a href="{% url 'shipment_details' shipment.id %}"
+                                        class="btn btn-sm btn-outline-info">Details</a>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -78,7 +77,8 @@
         <div class="card mb-3">
             <h5 class="card-header">Manage shipments</h5>
             <div class="card-body">
-                <a class="btn rounded btn-warning mb-3 w-100" href="{% url 'add_shipment' %}">Add</a>
+                <a class="btn rounded btn-info mb-3 w-100" href="{% url 'shipments' %}">Track</a>
+                <a class="btn rounded btn-primary mb-3 w-100" href="{% url 'add_shipment' %}">Add</a>
                 <a class="btn rounded btn-info mb-3 w-100" href="{% url 'shipments' %}">Recent</a>
             </div>
         </div>

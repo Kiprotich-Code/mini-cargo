@@ -44,7 +44,7 @@ class ShipmentDetailView(DetailView):
 class ShipmentUpdateView(UpdateView):
     template_name = 'shipments/shipment_update.html'
     model = Shipment
-    fields = ('customer', 'origin', 'destination', 'arrival_date', 'status', )
+    fields = ('shipper', 'receiver', 'shipped_from', 'shipped_to', 'arrival_date', 'status', )
     success_url = '/control/shipments/'
 
 
