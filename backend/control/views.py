@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from main.models import Shipment, Container
+from main.models import Shipment, Container, TrackShipment
 from accounts.models import CustomUser
-from .forms import CustomUserCreationForm, CustomUserChangeForm, ShipmentForm, ContainerForm 
+from .forms import CustomUserCreationForm, CustomUserChangeForm, ShipmentForm, ContainerForm, TrackShipmentForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required()
@@ -52,6 +53,50 @@ class ShipmentDeleteView(DeleteView):
     model = Shipment
     success_url = '/control/shipments/'
     template_name = 'shipments/confirm_delete_shipment.html'
+
+
+# SHIPMENT TRACKING VIEWS 
+def track_shipment(request, id):
+    shipment = get_object_or_404(Shipment, id=id)  # Get the shipment by ID
+    tracking_entries = TrackShipment.objects.filter(shipment=shipment).order_by('-timestamp')  # Retrieve existing tracking records for the shipment
+
+    if request.method == 'POST':
+        form = TrackShipmentForm(request.POST)
+        if form.is_valid():
+            track_shipment = form.save(commit=False)
+            track_shipment.shipment = shipment
+            track_shipment.save()
+            return redirect('track_shipment', id=shipment.id)  # Stay on the same page after form submission to view updates
+    
+    else:
+        form = TrackShipmentForm()
+    
+    context = {
+        'form': form,
+        'shipment': shipment,
+        'tracking_entries': tracking_entries  # Pass tracking records to the template
+    }
+    return render(request, 'tr/track_shipment.html', context)
+
+
+
+def tr_shipments(request):
+    tracked_shipments = Shipment.objects.filter(has_tracking=True)
+    untracked_shipments = Shipment.objects.filter(has_tracking=False)
+
+    # pagination 
+    paginator = Paginator(tracked_shipments, 10)  # Show 10 shipments per page.
+    paginator = Paginator(untracked_shipments, 10)  # Show 10 shipments per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'tracked_shipments': tracked_shipments,
+        'untracked_shipments': untracked_shipments,
+        'page_obj': 'page_obj'
+    }
+
+    return render(request, 'tr/shipments.html', context)
 
 
 

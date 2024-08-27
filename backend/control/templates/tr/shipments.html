@@ -2,12 +2,12 @@
 
 {% block content %}
 {% block items %}
-<h3 class="fw-lighter small py-2"># Shipments</h3>
+
 <div class="row">
     <div class="col-12 col-lg-8 mb-4 mb-lg-0">
-        {% if shipments %}
+        {% if untracked_shipments %}
         <div class="card">
-            <h5 class="card-header">Shipments</h5>
+            <div class="btn btn-danger btn-sm rounded"># Untracked Shipments</div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table">
@@ -19,24 +19,20 @@
                                 <th scope="col">Destination</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">#</th>
-                                <th scope="col">#</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for shipment in shipments %}
+                            {% for shipment in untracked_shipments %}
                             <tr>
                                 <td>{{shipment.reference_no}}</td>
                                 <td>{{shipment.shipper}}</td>
                                 <td>{{shipment.receiver}}</td>
                                 <td>{{shipment.shipped_to}}</td>
                                 <td>{{shipment.status}}</td>
+                    
                                 <td>
-                                    <a href="{% url 'update_shipment' shipment.id %}"
-                                        class="btn btn-sm btn-outline-primary">Update</a>
-                                </td>
-                                <td>
-                                    <a href="{% url 'shipment_details' shipment.id %}"
-                                        class="btn btn-sm btn-outline-info">Details</a>
+                                    <a href="{% url 'track_shipment' shipment.id %}"
+                                        class="btn btn-sm btn-outline-info">Track</a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -47,7 +43,7 @@
                 {% comment %} pagination {% endcomment %}
                 <div class='pagination justify-content-center'>
                     {% if page_obj.has_previous %}
-                    <a href='{% url "user_list" %}?page={{ page_obj.previous_page_number }}'
+                    <a href='{% url "tr_shipments" %}?page={{ page_obj.previous_page_number }}'
                         class="text-decoration-none">Previous </a>
                     {% endif %}
 
@@ -56,28 +52,79 @@
                     </span>
 
                     {% if page_obj.has_next %}
-                    <a href='{ url "user_list" }?page={{ page_obj.next_page_number }}' class="text-decoration-none">
+                    <a href='{ url "tr_shipments" }?page={{ page_obj.next_page_number }}' class="text-decoration-none">
                         Next</a>
                     {% endif %}
                 </div>
                 <!-- END Pagination -->
             </div>
         </div>
-        {% else %}
-        <div>
-            <p>
-                There are no shipments at the moment!
-            </p>
-            <a class="btn btn-sm btn-outline-primary" href="{% url 'add_shipment' %}">Add shipments</a>
+        {% endif %}
+        
+
+        {% if tracked_shipments %}
+        <div class="card">
+            <div class="btn btn-primary btn-sm rounded"># Tracked Shipments</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ref No</th>
+                                <th scope="col">Shipper</th>
+                                <th scope="col">Receiver</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shipment in tracked_shipments %}
+                            <tr>
+                                <td>{{shipment.reference_no}}</td>
+                                <td>{{shipment.shipper}}</td>
+                                <td>{{shipment.receiver}}</td>
+                                <td>{{shipment.shipped_to}}</td>
+                                <td>{{shipment.status}}</td>
+                    
+                                <td>
+                                    <a href="{% url 'track_shipment' shipment.id %}"
+                                        class="btn btn-sm btn-outline-info">Track</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% comment %} pagination {% endcomment %}
+                <div class='pagination justify-content-center'>
+                    {% if page_obj.has_previous %}
+                    <a href='{% url "tr_shipments" %}?page={{ page_obj.previous_page_number }}'
+                        class="text-decoration-none">Previous </a>
+                    {% endif %}
+
+                    <span class='mx-4'>
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                    <a href='{ url "tr_shipments" }?page={{ page_obj.next_page_number }}' class="text-decoration-none">
+                        Next</a>
+                    {% endif %}
+                </div>
+                <!-- END Pagination -->
+            </div>
         </div>
         {% endif %}
+
     </div>
     {% endblock %}
     <div class="col">
         <div class="card mb-3">
             <h5 class="card-header">Manage shipments</h5>
             <div class="card-body">
-                <a class="btn rounded btn-info mb-3 w-100" href="{% url 'tr_shipments' %}">Track</a>
+                <a class="btn rounded btn-info mb-3 w-100" href="{% url 'shipments' %}">Track</a>
                 <a class="btn rounded btn-primary mb-3 w-100" href="{% url 'add_shipment' %}">Add</a>
                 <a class="btn rounded btn-info mb-3 w-100" href="{% url 'shipments' %}">Recent</a>
             </div>

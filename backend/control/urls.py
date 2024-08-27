@@ -29,4 +29,8 @@ urlpatterns = [
 
     # customers 
     path('customer_list/', views.customer_list, name='customer_list'),
+
+    # Track 
+    path('tr_shipments', views.tr_shipments, name="tr_shipments"),
+    path('track_shipment/<int:id>/', views.track_shipment, name="track_shipment"),
 ]

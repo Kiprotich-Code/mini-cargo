@@ -1,4 +1,4 @@
-from main.models import Shipment, Container
+from main.models import Shipment, Container, TrackShipment
 from django import forms
 from accounts.models import CustomUser
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -20,7 +20,7 @@ class CustomUserChangeForm(forms.ModelForm):
 class ShipmentForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = '__all__'
+        fields = ['shipper', 'receiver', 'shipped_from', 'shipped_to', 'arrival_date', 'status', ]
 
 
 # CONTAINER FORM 
@@ -28,3 +28,10 @@ class ContainerForm(forms.ModelForm):
     class Meta:
         model = Container
         fields = '__all__'
+
+
+# TRACK SHIPMENT FORM 
+class TrackShipmentForm(forms.ModelForm):
+    class Meta:
+        model = TrackShipment
+        fields = ['current_location', 'status', ]
