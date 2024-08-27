@@ -1,19 +1,34 @@
 from django.db import models
 from accounts.models import CustomUser as Customer
+import uuid
 
 # Create your models here 
 class Shipment(models.Model):
-    STATUS = [('In Transit', 'In Transit'), ('Delivered', 'Delivered')]
+    STATUS = [
+        ('Picked Up', 'Picked Up'),
+        ('Processing', 'Processing'),
+        ('In Transit', 'In Transit'),
+        ('On Hold', 'On Hold'),
+        ('Delivered', 'Delivered')
+    ]
 
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    origin = models.CharField(max_length=255)
-    destination = models.CharField(max_length=255)
+    shipper = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, related_name="shipper")
+    receiver = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, related_name='receiver')
+    shipped_from = models.CharField(max_length=255, blank=True)
+    shipped_to = models.CharField(max_length=255, blank=True)
     departure_date = models.DateTimeField(auto_now_add=True)
     arrival_date = models.DateTimeField(null=True, blank=True)
+    reference_no = models.CharField(max_length=100, unique=True, blank=True, editable=False)
     status = models.CharField(max_length=50, choices=STATUS, default='In Transit')
 
     def __str__(self):
-        return f'Shipment {self.id} from {self.origin} to {self.destination}'
+        return f'Shipment {self.reference_no} from {self.shipped_from} to {self.shipped_to}'
+
+    def save(self, *args, **kwargs):
+        if not self.reference_no:
+            self.reference_no = str(uuid.uuid4()).replace('-', '').upper()[:10]
+        super().save(*args, **kwargs)
+
 
 class Container(models.Model):
     shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
@@ -24,13 +39,25 @@ class Container(models.Model):
     def __str__(self):
         return self.container_id
 
-class TrackingEvent(models.Model):
-    container = models.ForeignKey(Container, on_delete=models.CASCADE)
+class TrackShipment(models.Model):
+    STATUS = [
+        ('Picked Up', 'Picked Up'),
+        ('Processing', 'Processing'),
+        ('In Transit', 'In Transit'),
+        ('On Hold', 'On Hold'),
+        ('Delivered', 'Delivered')
+    ]
+
+    shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     location = models.CharField(max_length=255)
-    status = models.CharField(max_length=50, choices=[('Loaded', 'Loaded'), ('In Transit', 'In Transit'), ('Unloaded', 'Unloaded'), ('Delivered', 'Delivered')])
-    temperature = models.FloatField(null=True, blank=True)
-    humidity = models.FloatField(null=True, blank=True)
+    status = models.CharField(max_length=50, choices=STATUS, default='Picked Up')
+    tracking_no = models.CharField(max_length=20, unique=True, blank=True, editable=False)
 
     def __str__(self):
-        return f'Event for {self.container.container_id} at {self.location}'
+        return f'Tracking {self.tracking_no}: {self.status} at {self.location}'
+
+    def save(self, *args, **kwargs):
+        if not self.tracking_no:
+            self.tracking_no = 'TRK' + str(uuid.uuid4()).replace('-', '').upper()[:10]
+        super().save(*args, **kwargs)
