@@ -16,7 +16,7 @@ urlpatterns = [
     path('add_container/', views.add_container, name="add_container"),
     path('containers/', views.ContainersListView.as_view(), name="containers"),
     path('container_details/<pk>', views.ContainerDetailView.as_view(), name="container_details"),
-    path("update_container/<pk>", views.ContainerUpdateView.as_view(), name="update_container"),
+    path('update_container/<pk>', views.ContainerUpdateView.as_view(), name='update_container'),
     path('containers/<pk>/delete/', views.ContainerDeleteView.as_view(), name="delete_container"),
 
 
