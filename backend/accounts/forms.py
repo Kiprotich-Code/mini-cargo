@@ -13,10 +13,12 @@ class CustomerRegisterForm(UserCreationForm):
 
     class Meta():
         model = CustomUser
-        fields = ['email', 'full_names', 'password1', 'password2', ]
+        fields = ['email', 'full_names', 'address', 'location', 'password1', 'password2', ]
         widgets = {
             'email': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': "Customer's Email Address"}),
             'full_names': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': "Customer's Name"}),
+            'address': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': "Enter Address"}),
+            'location': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': "Enter Location"}),
         }
 
 

@@ -8,12 +8,12 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['email', 'full_names', 'user_type', 'password1', 'password2']
+        fields = ['email', 'full_names', 'address', 'location', 'password1', 'password2']
 
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['email', 'full_names', 'user_type']
+        fields = ['email', 'full_names', 'address', 'location', 'user_type']
 
 
 # SHIPMENT FORM 
