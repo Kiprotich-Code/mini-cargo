@@ -1,0 +1,122 @@
+{% extends './user_dashboard.html' %}
+
+{% block content %}
+<!-- div - track  -->
+<div class="container">
+    <div class="p-3 bg-dark d-flex">
+        <input type="text" class="mx-3 p-2" placeholder="Enter Tracking ID">
+        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+            <i class="zmdi zmdi-plus"></i>Track Item</button>
+    </div>
+</div>
+
+<section class="p-t-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="title-5 m-b-35">Shipments Sent To Me</h3>
+                <div class="table-data__tool">
+                    <div class="table-data__tool-left">
+                        <div class="rs-select2--light rs-select2--md">
+                            <select class="js-select2" name="property">
+                                <option selected="selected">All Shipments</option>
+                                <option value="">In Transit</option>
+                                <option value="">Delivered</option>
+                            </select>
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                        <div class="rs-select2--light rs-select2--sm">
+                            <select class="js-select2" name="time">
+                                <option selected="selected">Today</option>
+                                <option value="">3 Days</option>
+                                <option value=""> Last Week</option>
+                                <option value=""> Last Month</option>
+                            </select>
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                        <button class="au-btn-filter">
+                            <i class="zmdi zmdi-filter-list"></i>filters</button>
+                    </div>
+                    <div class="table-data__tool-right">
+                        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
+                            <select class="js-select2" name="type">
+                                <option selected="selected">Export</option>
+                                <option value="">Excel</option>
+                                <option value="">PDF</option>
+                            </select>
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive table-responsive-data2">
+                    <table class="table table-data2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </th>
+                                <th>Refference No</th>
+                                <th>Sender</th>
+                                <th>Destination</th>
+                                <th>Status</th>
+                                <th>Status</th>
+                                <th>Departure Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if shipments %}
+                            {% for shipment in shipments %}
+                            <tr class="tr-shadow">
+                                <td>
+                                    <label class="au-checkbox">
+                                        <input type="checkbox">
+                                        <span class="au-checkmark"></span>
+                                    </label>
+                                </td>
+                                <td>{{shipment.reference_no}}</td>
+                                <td>
+                                    <span class="block-email">{{shipment.shipper}}</span>
+                                </td>
+                                <td class="desc">{{shipment.shipped_to}}</td>
+                                <td>{{shipment.status}}</td>
+                                {% if shipment.has_tracking %}
+                                <td>
+                                    <span class="status--process">Tracked</span>
+                                </td>
+                                {% else %}
+                                <td>
+                                    <span class="status--denied">Untracked</span>
+                                </td>
+                                {% endif %}
+                                <td>{{shipment.departure_date}}</td>
+                                <td>
+                                    <div class="table-data-feature">
+                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                            title="Archive">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                            title="Details">
+                                            <i class="zmdi zmdi-more"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <p>
+                                There are currently no records for {{request.user.full_names}}
+                            </p>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

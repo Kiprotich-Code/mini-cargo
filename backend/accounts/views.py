@@ -43,7 +43,7 @@ def signin(request):
             
             else:
                 messages.success(request, 'Login successful!')
-                return redirect('home')
+                return redirect('user_dashboard')
         
         else:
             messages.error(request, 'User Does Not Exist!')
