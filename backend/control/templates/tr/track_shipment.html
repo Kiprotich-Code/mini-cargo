@@ -3,10 +3,11 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h5>Track: {{ shipment }}</h5>
+<h5>{{ shipment }}</h5>
 <br>
 <!-- Display the tracking history -->
-<h5>Tracking History</h5>
+<h5>Tracking No: {{tracking_info.tracking_no}}</h5>
+
 <table class="table table-striped">
     <thead>
         <tr>

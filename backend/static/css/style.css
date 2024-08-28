@@ -71,17 +71,22 @@ button {
 .step .circle {
   width: 40px;
   height: 40px;
-  background-color: #f96332;
+  background-color: white; /* Default color */
   border-radius: 50%;
-  color: white;
+  border: 2px solid #f96332; /* Border color for the circle */
+  color: #f96332; /* Icon color */
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
   font-size: 1.2rem;
   z-index: 2;
-  /* Bring the circles above the line */
   position: relative;
+}
+
+.step.completed .circle {
+  background-color: #f96332; /* Filled circle */
+  color: white; /* White icon when filled */
 }
 
 .step p {
@@ -97,10 +102,12 @@ button {
   right: 0;
   transform: translateY(-50%);
   height: 4px;
-  /* Thicker line */
-  background-color: #f96332;
+  background-color: white; /* Default white line */
   z-index: 0;
-  /* Lower z-index to send it behind the circles */
+}
+
+.step.completed::before {
+  background-color: #f96332; /* Filled line */
 }
 
 .step:first-child::before {

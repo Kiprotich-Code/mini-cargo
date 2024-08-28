@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from main.models import Shipment
+from main.models import Shipment, TrackShipment
 
 # Create your views here.
 def home(request):
@@ -14,8 +14,16 @@ def user_dashboard(request):
 
 def user_shipments(request):
     shipments = Shipment.objects.filter(shipper=request.user)
+    tracking_no = request.GET.get('tracking_no')
+    status = None
+
+    if tracking_no:
+        shipment = get_object_or_404(TrackShipment, tracking_no=tracking_no)
+        status = shipment.status
+
     context = {
-        'shipments': shipments
+        'shipments': shipments,
+        'status': status,
     }
 
     return render(request, 'main/user_shipments.html', context)

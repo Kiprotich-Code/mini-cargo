@@ -54,7 +54,7 @@ class TrackShipment(models.Model):
         ('Delivered', 'Delivered')
     ]
 
-    shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
+    shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE, related_name='tr_shipments')
     timestamp = models.DateTimeField(auto_now_add=True)
     current_location = models.CharField(max_length=255)
     status = models.CharField(max_length=50, choices=STATUS, default='Picked Up')

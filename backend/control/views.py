@@ -59,6 +59,7 @@ class ShipmentDeleteView(DeleteView):
 def track_shipment(request, id):
     shipment = get_object_or_404(Shipment, id=id)  # Get the shipment by ID
     tracking_entries = TrackShipment.objects.filter(shipment=shipment).order_by('-timestamp')  # Retrieve existing tracking records for the shipment
+    tracking_info = shipment.tr_shipments.first()
 
     if request.method == 'POST':
         form = TrackShipmentForm(request.POST)
@@ -74,6 +75,7 @@ def track_shipment(request, id):
     context = {
         'form': form,
         'shipment': shipment,
+        'tracking_info': tracking_info,
         'tracking_entries': tracking_entries  # Pass tracking records to the template
     }
     return render(request, 'tr/track_shipment.html', context)

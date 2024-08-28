@@ -3,48 +3,127 @@
 {% block content %}
 <!-- div - track  -->
 <div class="container">
-    <div class="p-3 bg-dark d-flex">
-        <input type="text" class="mx-3 p-md-2" placeholder="Enter Tracking ID">
-        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-            <i class="zmdi zmdi-plus"></i>Track Item</button>
+    <div class="p-3 bg-dark d-md-flex overflow">
+        <form method="GET">
+            <input type="text" name="tracking_no" class="mx-md-3 p-2 mb-3 mb-sm-0" placeholder="Enter Tracking ID">
+            <button type="submit" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                <i class="zmdi zmdi-plus"></i>Track Item
+            </button>
+        </form>
     </div>
 
-    <!-- tracker  -->
-    <div class="container mt-5">
-        <div class="stepper">
-            <div class="step">
-                <div class="circle">
-                    <i class="fa fa-cube"></i>
+    <div class="card my-3">
+
+        <div class="card-header">Order Tracking</div>
+
+        <div class="p-3">
+            <h4 class="p-2">Tracking No: </h4>
+
+            <div class="container border p-2 d-flex flex-wrap justify-content-between">
+                <div>
+                    <h5>Date:</h5>
                 </div>
-                <p>Picked Up</p>
+
+                <div>
+                    <h5>Status:</h5>
+                </div>
+
+                <div>
+                    <h5>Location:</h5>
+                </div>
             </div>
-            <div class="step">
-                <div class="circle">
-                    <i class="fa fa-cogs"></i>
+
+
+            {% if status %}
+            <div class="container-fluid mt-5">
+                <div class="stepper">
+                    <div
+                        class="step {% if status == 'Picked Up' or status == 'Processing' or status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                        <div class="circle"><i class="fa fa-cube"></i></div>
+                        <p>Picked Up</p>
+                    </div>
+                    <div
+                        class="step {% if status == 'Processing' or status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                        <div class="circle"><i class="fa fa-cogs"></i></div>
+                        <p>Processing</p>
+                    </div>
+                    <div
+                        class="step {% if status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                        <div class="circle"><i class="fa fa-truck"></i></div>
+                        <p>In Transit</p>
+                    </div>
+                    <div class="step {% if status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                        <div class="circle"><i class="fa fa-pause"></i></div>
+                        <p>On Hold</p>
+                    </div>
+                    <div class="step {% if status == 'Delivered' %}completed{% endif %}">
+                        <div class="circle"><i class="fa fa-check-circle"></i></div>
+                        <p>Delivered</p>
+                    </div>
                 </div>
-                <p>Processing</p>
             </div>
-            <div class="step">
-                <div class="circle">
-                    <i class="fa fa-truck"></i>
+        </div>
+        {% endif %}
+
+        <!-- shipment details  -->
+        <div class="border rounded m-3 p-3">
+            <div class="row">
+                <div class="col">
+                    <div class="py-2">
+                        <h5>Shipper Details:</h5>
+                        <p>{{shipment.shipper.full_names}}</p>
+                        <p>{{shipment.shipper.address}}</p>
+                        <p>{{shipment.shipper.location}}</p>
+                    </div>
+
+                    <div class="py-2">
+                        <h5>Shipped From:</h5>
+                        <p>{{shipment.shipped_from}}</p>
+                    </div>
+
+                    <div class="py-2">
+                        <h5>Reference No:</h5>
+                        <p>{{shipment.reference_no}}</p>
+                    </div>
+
+                    <div class="py-2">
+                        <h5>Departed On:</h5>
+                        <p>{{shipment.departure_date}}</p>
+                    </div>
                 </div>
-                <p>In Transit</p>
-            </div>
-            <div class="step">
-                <div class="circle">
-                    <i class="fa fa-pause"></i>
+                <div class="col">
+                    <div class="py-2">
+                        <h5>Receiver Details:</h5>
+                        <p>{{shipment.receiver.full_names}}</p>
+                        <p>{{shipment.receiver.address}}</p>
+                        <p>{{shipment.receiver.location}}</p>
+                    </div>
+
+                    <div class="py-2">
+                        <h5>Shipped To:</h5>
+                        <p>{{shipment.shipped_to}}</p>
+                    </div>
+
+                    <div class="py-2">
+                        <h5>Status:</h5>
+                        <p>{{shipment.status}}</p>
+                    </div>
+
+                    {% if shipment.arrived_date %}
+                    <div class="py-2">
+                        <h5>Arrived On:</h5>
+                        <p>{{shipment.arrived_date}}</p>
+                    </div>
+                    {% else %}
+                    <div class="py-2">
+                        <h5>Arrived On:</h5>
+                        <p>Not Yet Delivered</p>
+                    </div>
+                    {% endif %}
                 </div>
-                <p>On Hold</p>
-            </div>
-            <div class="step">
-                <div class="circle">
-                    <i class="fa fa-check-circle"></i>
-                </div>
-                <p>Delivered</p>
             </div>
         </div>
     </div>
-    
 </div>
 
 <section class="p-t-20">
