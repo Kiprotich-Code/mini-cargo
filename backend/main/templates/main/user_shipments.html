@@ -12,24 +12,34 @@
         </form>
     </div>
 
+    {% if error_message %}
+    <div class="alert alert-danger m-3" role="alert">
+        {{ error_message }}
+    </div>
+    {% endif %}
+
+    {% if shipment %}
     <div class="card my-3">
 
         <div class="card-header">Order Tracking</div>
 
         <div class="p-3">
-            <h4 class="p-2">Tracking No: </h4>
+            <h4 class="p-3">Tracking No: {{tracking_no}}</h4>
 
-            <div class="container border p-2 d-flex flex-wrap justify-content-between">
+            <div class="container border p-3 d-flex flex-wrap justify-content-between">
                 <div>
                     <h5>Date:</h5>
+                    <p>{{track_shipment.timestamp}}</p>
                 </div>
 
                 <div>
                     <h5>Status:</h5>
+                    <p>{{track_shipment.status}}</p>
                 </div>
 
                 <div>
                     <h5>Location:</h5>
+                    <p>{{track_shipment.current_location}}</p>
                 </div>
             </div>
 
@@ -66,6 +76,7 @@
         {% endif %}
 
         <!-- shipment details  -->
+        {% if shipment %}
         <div class="border rounded m-3 p-3">
             <div class="row">
                 <div class="col">
@@ -123,7 +134,9 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
+    {% endif %}
 </div>
 
 <section class="p-t-20">
