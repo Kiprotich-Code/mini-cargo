@@ -29,6 +29,7 @@
 
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/stepper.css' %}" rel="stylesheet">
 
 </head>
 
@@ -73,9 +74,9 @@
               multiple deliveries, our reliable tracking system gives you peace of mind and complete control over your
               shipments. Effortless, fast, and secure – take charge of your cargo with just a few clicks.</p>
 
-            <form action="#" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
+            <form method="GET" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
               data-aos-delay="200">
-              <input type="text" class="form-control" placeholder="Enter Your Tracking No ">
+              <input type="text" name="tracking_no" class="form-control" placeholder="Enter Your Tracking No ">
               <button type="submit" class="btn btn-primary">Track</button>
             </form>
 
@@ -125,6 +126,143 @@
       </div>
 
     </section><!-- /Hero Section -->
+
+
+    <!-- tracking  -->
+    <div class="container" id="results">
+      <div class="p-3 border m-3 d-md-flex justify-content-center">
+        <form method="GET" class="form-search w-100 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200" style="max-width: 800px;">
+            <input type="text" name="tracking_no" class="form-control form-control-lg me-2" placeholder="Enter Your Tracking No" style="border-radius: 30px 0 0 30px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+            <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 0 30px 30px 0; padding-left: 30px; padding-right: 30px;">Track</button>
+        </form>
+    </div>
+    
+      {% if error_message %}
+      <div class="alert alert-danger m-3" role="alert">
+        {{ error_message }}
+      </div>
+      {% endif %}
+
+      {% if shipment %}
+      <div class="card my-3">
+
+        <div class="card-header">Order Tracking</div>
+
+        <div class="p-3">
+          <h4 class="p-3">Tracking No: {{tracking_no}}</h4>
+
+          <div class="container border p-3 d-flex flex-wrap justify-content-between">
+            <div>
+              <h5>Date:</h5>
+              <p>{{track_shipment.timestamp}}</p>
+            </div>
+
+            <div>
+              <h5>Status:</h5>
+              <p>{{track_shipment.status}}</p>
+            </div>
+
+            <div>
+              <h5>Location:</h5>
+              <p>{{track_shipment.current_location}}</p>
+            </div>
+          </div>
+
+
+          {% if status %}
+          <div class="container-fluid mt-5">
+            <div class="stepper">
+              <div
+                class="step {% if status == 'Picked Up' or status == 'Processing' or status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                <div class="circle"><i class="fa fa-cube"></i></div>
+                <p>Picked Up</p>
+              </div>
+              <div
+                class="step {% if status == 'Processing' or status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                <div class="circle"><i class="fa fa-cogs"></i></div>
+                <p>Processing</p>
+              </div>
+              <div
+                class="step {% if status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                <div class="circle"><i class="fa fa-truck"></i></div>
+                <p>In Transit</p>
+              </div>
+              <div class="step {% if status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
+                <div class="circle"><i class="fa fa-pause"></i></div>
+                <p>On Hold</p>
+              </div>
+              <div class="step {% if status == 'Delivered' %}completed{% endif %}">
+                <div class="circle"><i class="fa fa-check-circle"></i></div>
+                <p>Delivered</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- shipment details  -->
+        {% if shipment %}
+        <div class="border rounded m-3 p-3">
+          <div class="row">
+            <div class="col">
+              <div class="py-2">
+                <h5>Shipper Details:</h5>
+                <p>{{shipment.shipper.full_names}}</p>
+                <p>{{shipment.shipper.address}}</p>
+                <p>{{shipment.shipper.location}}</p>
+              </div>
+
+              <div class="py-2">
+                <h5>Shipped From:</h5>
+                <p>{{shipment.shipped_from}}</p>
+              </div>
+
+              <div class="py-2">
+                <h5>Reference No:</h5>
+                <p>{{shipment.reference_no}}</p>
+              </div>
+
+              <div class="py-2">
+                <h5>Departed On:</h5>
+                <p>{{shipment.departure_date}}</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="py-2">
+                <h5>Receiver Details:</h5>
+                <p>{{shipment.receiver.full_names}}</p>
+                <p>{{shipment.receiver.address}}</p>
+                <p>{{shipment.receiver.location}}</p>
+              </div>
+
+              <div class="py-2">
+                <h5>Shipped To:</h5>
+                <p>{{shipment.shipped_to}}</p>
+              </div>
+
+              <div class="py-2">
+                <h5>Status:</h5>
+                <p>{{shipment.status}}</p>
+              </div>
+
+              {% if shipment.arrived_date %}
+              <div class="py-2">
+                <h5>Arrived On:</h5>
+                <p>{{shipment.arrived_date}}</p>
+              </div>
+              {% else %}
+              <div class="py-2">
+                <h5>Arrived On:</h5>
+                <p>Not Yet Delivered</p>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
 
 
     <!-- About Section -->

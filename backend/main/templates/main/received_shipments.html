@@ -58,6 +58,7 @@
                                     </label>
                                 </th>
                                 <th>Refference No</th>
+                                <th>Tracking No</th>
                                 <th>Sender</th>
                                 <th>Destination</th>
                                 <th>Status</th>
@@ -78,6 +79,11 @@
                                     </label>
                                 </td>
                                 <td>{{shipment.reference_no}}</td>
+                                {% if shipment.has_tracking %}
+                                <td>{{shipment.tr_shipments.first.tracking_no}}</td>
+                                {% else %}
+                                <td>Unset</td>
+                                {% endif %}
                                 <td>
                                     <span class="block-email">{{shipment.shipper}}</span>
                                 </td>

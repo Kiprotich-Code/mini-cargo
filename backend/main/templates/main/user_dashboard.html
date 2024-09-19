@@ -47,7 +47,7 @@
                 <div class="header3-wrap">
                     <div class="header__logo">
                         <a href="#">
-                            <img src="{% static 'images/logo_cg.jpeg' %}" alt="Cargo" style="width: 80px;"/>
+                            <img src="{% static 'images/logo_cg.jpeg' %}" alt="Cargo" style="width: 80px;" />
                         </a>
                     </div>
                     <div class="header__navbar">
@@ -186,7 +186,7 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="has-sub">
-                            <a class="js-arrow" href="#">
+                            <a class="js-arrow" href="{% url 'user_dashboard' %}">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
@@ -486,6 +486,7 @@
             </section>
             <!-- END STATISTIC CHART-->
 
+
             <!-- DATA TABLE-->
             <section class="p-t-20">
                 <div class="container">
@@ -514,7 +515,12 @@
                                     <button class="au-btn-filter">
                                         <i class="zmdi zmdi-filter-list"></i>filters</button>
                                 </div>
-                                <div class="table-data__tool-right">
+                                <div class="table-data__tool-right d-flex">
+                                    <div class="mx-3">
+                                        <a type="submit" class="au-btn au-btn-icon au-btn--green au-btn--small" href="{% url 'user_shipments' %}">
+                                            <i class="zmdi zmdi-plus"></i>Track Item
+                                        </a>
+                                    </div>
                                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                                         <select class="js-select2" name="type">
                                             <option selected="selected">Export</option>
@@ -536,6 +542,7 @@
                                                 </label>
                                             </th>
                                             <th>Refference No</th>
+                                            <th>Tracking No</th>
                                             <th>Receiver</th>
                                             <th>Destination</th>
                                             <th>Status</th>
@@ -555,6 +562,11 @@
                                                 </label>
                                             </td>
                                             <td>{{shipment.reference_no}}</td>
+                                            {% if shipment.has_tracking %}
+                                            <td>{{shipment.tr_shipments.first.tracking_no}}</td>
+                                            {% else %}
+                                            <td>Unset</td>
+                                            {% endif %}
                                             <td>
                                                 <span class="block-email">{{shipment.receiver}}</span>
                                             </td>
