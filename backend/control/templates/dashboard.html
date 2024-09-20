@@ -44,8 +44,8 @@
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="Cargo Tracking App" />
+                        <a class="logo" href="{% url 'dashboard' %}">
+                            <img src="{% static 'images/logo-bg.png' %}" alt="Cargo Tracking App" style="width: 60px;" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -125,8 +125,8 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
-                    <img src="images/icon/logo.png" alt="Cargo Tracking App" />
+                <a href="{% url 'dashboard' %}">
+                    <img src="{% static 'images/logo-bg.png' %}" alt="Cargo Tracking App" style="width: 60px;" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -316,7 +316,7 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="{{request.user.full_names}}" />
+                                            <img src="{% static 'images/logo-bg.png' %}" alt="{{request.user.full_names}}" />
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{request.user.full_names}}</a>
@@ -325,7 +325,7 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="{{request.user.full_names}}" />
+                                                        <img src="{% static 'images/logo-bg.png' %}" alt="{{request.user.full_names}}" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
