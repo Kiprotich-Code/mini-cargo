@@ -6,7 +6,7 @@
     <div class="p-3 bg-dark d-md-flex overflow">
         <form method="GET">
             <input type="text" name="tracking_no" class="mx-md-3 p-2 mb-3 mb-sm-0" placeholder="Enter Tracking ID">
-            <button type="submit" class="au-btn au-btn-icon au-btn--green au-btn--small">
+            <button type="submit" class="au-btn au-btn-icon au-btn--green au-btn--small" id="track-btn">
                 <i class="zmdi zmdi-plus"></i>Track Item
             </button>
         </form>
@@ -19,7 +19,7 @@
     {% endif %}
 
     {% if shipment %}
-    <div class="card my-3">
+    <div class="border rounded my-3">
 
         <div class="card-header">Order Tracking</div>
 
@@ -29,23 +29,23 @@
             <div class="container border p-3 d-flex flex-wrap justify-content-between">
                 <div>
                     <h5>Date:</h5>
-                    <p>{{track_shipment.timestamp}}</p>
+                    <p>{{shipment.tr_shipments.timestamp}}</p>
                 </div>
 
                 <div>
                     <h5>Status:</h5>
-                    <p>{{track_shipment.status}}</p>
+                    <p>{{shipment.tr_shipments.status}}</p>
                 </div>
 
                 <div>
                     <h5>Location:</h5>
-                    <p>{{track_shipment.current_location}}</p>
+                    <p>{{shipment.tr_shipments.current_location}}</p>
                 </div>
             </div>
 
 
             {% if status %}
-            <div class="container-fluid mt-5">
+            <div class="mt-5 bg-dark p-3 text-white rounded">
                 <div class="stepper">
                     <div
                         class="step {% if status == 'Picked Up' or status == 'Processing' or status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
@@ -120,10 +120,10 @@
                         <p>{{shipment.status}}</p>
                     </div>
 
-                    {% if shipment.arrived_date %}
+                    {% if shipment.arrival_date %}
                     <div class="py-2">
                         <h5>Arrived On:</h5>
-                        <p>{{shipment.arrived_date}}</p>
+                        <p>{{shipment.arrival_date}}</p>
                     </div>
                     {% else %}
                     <div class="py-2">

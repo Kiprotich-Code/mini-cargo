@@ -12,6 +12,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
+    <link rel="icon" href="{% static 'images/logo-bg.png' %}">
     <title>Cargo App</title>
 
     <!-- Fontfaces CSS-->
@@ -47,7 +48,7 @@
                 <div class="header3-wrap">
                     <div class="header__logo">
                         <a href="#">
-                            <img src="{% static 'images/logo_cg.jpeg' %}" alt="Cargo" style="width: 80px;" />
+                            <img src="{% static 'images/logo-bg.png' %}" alt="Cargo" style="width: 80px;" />
                         </a>
                     </div>
                     <div class="header__navbar">
@@ -119,7 +120,7 @@
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">
-                                    <img src="images/icon/avatar-01.jpg" alt="{{request.user.full_names}}" />
+                                    <img src="{% static 'images/logo-bg.png' %}" alt="{{request.user.full_names}}" />
                                 </div>
                                 <div class="content">
                                     <a class="js-acc-btn" href="#">{{request.user.full_names}}</a>
@@ -128,7 +129,7 @@
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="#">
-                                                <img src="images/icon/avatar-01.jpg"
+                                                <img src="{% static 'images/logo-bg.png' %}"
                                                     alt="{{request.user.full_names}}" />
                                             </a>
                                         </div>
@@ -172,7 +173,7 @@
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
                         <a class="logo" href="index.html">
-                            <img src="images/icon/logo-white.png" alt="CoolAdmin" />
+                            <img src="{% static 'images/logo-bg.png' %}" alt="CoolAdmin" style="width: 60px;" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -286,7 +287,7 @@
                 <div class="account-wrap">
                     <div class="account-item account-item--style2 clearfix js-item-menu">
                         <div class="image">
-                            <img src="images/icon/avatar-01.jpg" alt="{{request.user.full_names}}" />
+                            <img src="{% static 'images/logo-bg.png' %}" alt="{{request.user.full_names}}" />
                         </div>
                         <div class="content">
                             <a class="js-acc-btn" href="#">{{request.user.full_names}}</a>
@@ -295,7 +296,7 @@
                             <div class="info clearfix">
                                 <div class="image">
                                     <a href="#">
-                                        <img src="images/icon/avatar-01.jpg" alt="{{request.user.full_names}}" />
+                                        <img src="{% static 'images/logo-bg.png' %}" alt="{{request.user.full_names}}" />
                                     </a>
                                 </div>
                                 <div class="content">
@@ -654,6 +655,7 @@
 
     <!-- Main JS-->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
 </body>
 

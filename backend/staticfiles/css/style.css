@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
+
 body,
 button {
   font-family: "Inter", sans-serif;
@@ -118,36 +119,126 @@ button {
   right: 50%;
 }
 
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   .stepper {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; /* Keep steps in a row for smaller devices */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0; /* Reduce padding for smaller screens */
   }
 
   .step {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
+    position: relative;
+    flex: 1; /* Allow steps to take up equal width */
+    text-align: center;
+    margin-bottom: 0; /* Remove extra margin */
+  }
+
+  .step .circle {
+    margin: 0 auto 10px auto; /* Center the circle and add margin below */
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 
   .step::before {
-    display: none;
+    content: '';
+    position: absolute;
+    top: 50%; /* Center the line horizontally */
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 100%; /* Full width between the steps */
+    background-color: #f96332;
+    z-index: 1;
   }
 
-  .step:not(:last-child) .circle {
-    margin-bottom: 10px;
+  .step:first-child::before {
+    left: 50%; /* Line starts from the first step's center */
+  }
+
+  .step:last-child::before {
+    right: 50%; /* Line ends at the last step's center */
+  }
+
+  .step p {
+    margin: 0;
+    padding-top: 5px;
+  }
+
+  .step.completed::before {
+    background-color: #f96332;
+  }
+
+  .step:not(.completed)::before {
+    background-color: white;
+  }
+}
+
+
+/* Mobile responsiveness for smallest devices */
+@media (max-width: 480px) {
+  .stepper {
+    flex-direction: row; /* Keep the horizontal row */
+    justify-content: space-between; /* Spread the steps evenly */
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .step {
+    flex-direction: column; /* Keep steps aligned vertically within each item */
+    align-items: center;
+    flex: 1; /* Equal width for each step */
+    text-align: center;
+    margin-bottom: 0;
     position: relative;
   }
 
-  .step:not(:last-child)::after {
+  .step .circle {
+    margin: 0 auto 5px auto; /* Reduced margin for better fit */
+    width: 30px; /* Slightly smaller circles */
+    height: 30px;
+    font-size: 1rem; /* Slightly smaller font for icons */
+  }
+
+  .step::before {
     content: '';
     position: absolute;
-    top: 90%;
-    left: 20%;
-    width: 2px;
-    height: 30px;
-    background-color: #f96332;
+    top: 50%; /* Align the connecting line with the middle of the circles */
+    left: 50%;
     transform: translateX(-50%);
+    height: 2px;
+    width: 50%; /* Narrower width for small screens */
+    background-color: #f96332;
+    z-index: 1;
+  }
+
+  .step:first-child::before {
+    left: 50%;
+    width: 25%; /* Start line halfway from the first circle */
+  }
+
+  .step:last-child::before {
+    right: 50%;
+    width: 2%; /* End line halfway at the last circle */
+  }
+
+  .step p {
+    font-size: 0.8rem; /* Smaller text for step names */
+    padding-top: 3px;
+    word-break: break-word; /* Prevent text overflow */
+    max-width: 60px; /* Limit the width to avoid text overlap */
+  }
+
+  .step.completed::before {
+    background-color: #f96332;
+  }
+
+  .step:not(.completed)::before {
+    background-color: white;
   }
 }

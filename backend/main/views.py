@@ -21,7 +21,7 @@ def home(request):
     context = {
         'shipments': shipments,
         'status': status,
-        'shipment': shipment_details,
+        'shipment_details': shipment_details,
         'tracking_no': tracking_no,
         'error_message': error_message,  # Include error message in context
     }

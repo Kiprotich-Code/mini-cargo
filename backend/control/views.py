@@ -2,17 +2,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from main.models import Shipment, Container, TrackShipment
 from accounts.models import CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm, ShipmentForm, ContainerForm, TrackShipmentForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.core.paginator import Paginator
 
 # Create your views here.
+# Test to see if user is an admin 
+def is_user_admin(user):
+    return user.is_staff
+
+
 @login_required()
+@user_passes_test(is_user_admin)
 def dashboard(request):
     return render(request, 'dashboard.html')
 
 # CRUD SHIPMENTS 
 # ADD SHIPMENT 
+@login_required()
+@user_passes_test(is_user_admin)
 def add_shipment(request):
     if request.method == 'POST':
         form = ShipmentForm(request.POST)
@@ -56,6 +64,8 @@ class ShipmentDeleteView(DeleteView):
 
 
 # SHIPMENT TRACKING VIEWS 
+@login_required()
+@user_passes_test(is_user_admin)
 def track_shipment(request, id):
     shipment = get_object_or_404(Shipment, id=id)  # Get the shipment by ID
     tracking_entries = TrackShipment.objects.filter(shipment=shipment).order_by('-timestamp')  # Retrieve existing tracking records for the shipment
@@ -82,6 +92,8 @@ def track_shipment(request, id):
 
 
 
+@login_required()
+@user_passes_test(is_user_admin)
 def tr_shipments(request):
     tracked_shipments = Shipment.objects.filter(has_tracking=True)
     untracked_shipments = Shipment.objects.filter(has_tracking=False)
@@ -104,6 +116,8 @@ def tr_shipments(request):
 
 # CRUD ON CONTAINERS 
 # ADD CONTAINER
+@login_required()
+@user_passes_test(is_user_admin)
 def add_container(request):
     if request.method == 'POST':
         form = ContainerForm(request.POST)
@@ -148,7 +162,9 @@ class ContainerDeleteView(DeleteView):
 
 # CRUD ON USERS 
 # Create
-@login_required
+
+@login_required()
+@user_passes_test(is_user_admin)
 def user_create(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -160,7 +176,9 @@ def user_create(request):
     return render(request, 'users/user_form.html', {'form': form})
 
 # Read
-@login_required
+
+@login_required()
+@user_passes_test(is_user_admin)
 def user_list(request):
     users = CustomUser.objects.all().order_by('-date_joined')
     recent_users = CustomUser.objects.all().order_by('-date_joined')[0:3]
@@ -170,13 +188,17 @@ def user_list(request):
     }
     return render(request, 'users/user_home.html', context)
 
-@login_required
+
+@login_required()
+@user_passes_test(is_user_admin)
 def user_detail(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     return render(request, 'users/user_detail.html', {'user': user})
 
 # Update
-@login_required
+
+@login_required()
+@user_passes_test(is_user_admin)
 def user_update(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'POST':
@@ -189,7 +211,9 @@ def user_update(request, pk):
     return render(request, 'users/user_update.html', {'form': form})
 
 # Delete
-@login_required
+
+@login_required()
+@user_passes_test(is_user_admin)
 def user_delete(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'POST':
@@ -198,7 +222,9 @@ def user_delete(request, pk):
     return render(request, 'users/user_confirm_delete.html', {'user': user})
 
 # EXTRAS CUSTOMER LIST 
-@login_required
+
+@login_required()
+@user_passes_test(is_user_admin)
 def customer_list(request):
     customers = CustomUser.objects.filter(user_type__in=['Customer', 'customer']).order_by('-date_joined')
     recent_customers = CustomUser.objects.filter(user_type__in=['Customer', 'customer']).order_by('-date_joined')[0:3]

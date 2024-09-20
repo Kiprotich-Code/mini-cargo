@@ -137,18 +137,3 @@
 })();
 
 
-
-// scroll to specific page 
-window.onload = function() {
-  // Check if the URL contains the tracking_no parameter
-  const urlParams = new URLSearchParams(window.location.search);
-  const trackingNo = urlParams.get('tracking_no');
-
-  // If the tracking_no parameter is present, scroll to the results section
-  if (trackingNo) {
-      const resultsSection = document.getElementById('results-section');
-      if (resultsSection) {
-          resultsSection.scrollIntoView({ behavior: 'smooth' });
-      }
-  }
-}
