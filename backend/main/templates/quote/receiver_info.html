@@ -1,0 +1,41 @@
+{% extends '../index.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<section id="hero" class="section dark-background">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="col col-md-5 border border-white p-3 rounded mt-4">
+            <div class="container">
+                {% block form %}
+                <!-- Optional Icon for cargo tracking -->
+                <div class="tracking-icon d-flex gap-3">
+                    <i class="fas fa-shipping-fast"></i> <!-- Cargo tracking icon -->
+                    <p>Receiver's Info</p>
+                </div>
+                <p>Add Quote Form</p>
+                <hr>
+                <form method="POST" class="">
+                    {% csrf_token %}
+                    <div class="form_group py-2">
+                        {{ form.receiver_name }}
+                    </div>
+                    <div class="form_group py-2">
+                        {{ form.receiver_email_address }}
+                    </div>
+                    <div class="form_group py-2">
+                        {{ form.receiver_location }}
+                    </div>
+                    <div class="form_group py-2">
+                        {{ form.receiver_address }}
+                    </div>
+                    <div class="py-2">
+                        <input type="submit" class="btn btn-primary" value="Next Step">
+                    </div>
+                </form>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

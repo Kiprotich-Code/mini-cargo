@@ -54,12 +54,13 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="">Get a Quote</a>
+      <a class="btn-getstarted" href="{% url 'receiver_info' %}">Get a Quote</a>
 
     </div>
   </header>
 
   <main class="main">
+    {% block content %}
 
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
@@ -515,6 +516,7 @@
 
     </section> -->
 
+    {% endblock %}
   </main>
 
   <footer id="footer" class="footer dark-background">
