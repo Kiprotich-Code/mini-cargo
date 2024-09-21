@@ -1,23 +1,55 @@
-{% extends '../index.html' %}
-{% load crispy_forms_tags %}
+{% extends './receiver_info.html' %}
 
 {% block content %}
-<section id="hero" class="section dark-background">
-  <div class="">
-    <div class="row border border-white p-3 rounded mt-4">
-      <div class="container-fluid">
-        <!-- Optional Icon for cargo tracking -->
-        <div class="tracking-icon d-flex gap-3">
-          <i class="fas fa-shipping-fast"></i> <!-- Cargo tracking icon -->
-          <p>Shipments Details</p>
-        </div>
-        <p>Add Quote Form</p>
-        <hr>
-        <form method="POST" class="">
-          {% csrf_token %}
-          {% crispy form %}
-        </form>
+<section id="hero" class="section dark-background p-3">
+  <div class="p-5 mt-5">
+    <div class="container border border-white p-5 rounded">
+      <!-- Optional Icon for cargo tracking -->
+      <div class="tracking-icon d-flex gap-3">
+        <i class="fas fa-shipping-fast"></i> <!-- Cargo tracking icon -->
+        <p>Shipment Info</p>
       </div>
+      <p>Add Quote Form</p>
+      <hr>
+      <form method="POST" class="">
+        {% csrf_token %}
+        <div class="row">
+          <div class="form_group col col-md-3 py-2">
+            {{ form.content }}
+          </div>
+          <div class="form_group col col-md-3 py-2">
+            {{ form.qnty }}
+          </div>
+          <div class="form_group col col-md-3 py-2">
+            {{ form.shipped_from }}
+          </div>
+          <div class="form_group col col-md-3 py-2">
+            {{ form.shipped_to }}
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="form_group col col-md-4 py-2">
+            {{ form.expected_shipping_date.label_tag }}
+            {{ form.expected_shipping_date }}
+          </div>
+          <div class="form_group col col-md-4 py-2">
+            {{ form.expected_arrival_date.label_tag }}
+            {{ form.expected_arrival_date }}
+          </div>
+          <div class="form_group col col-md-4 py-2">
+            {{ form.estimated_budget.label_tag }}
+            {{ form.estimated_budget }}
+          </div>
+        </div>
+        <div class="form_group py-2">
+          {{ form.additional_info }}
+        </div>
+        <div class="py-2">
+          <input type="submit" class="btn btn-primary" value="Add Quote">
+        </div>
+      </form>
     </div>
   </div>
-  {% endblock %}
+</section>
+{% endblock %}

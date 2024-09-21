@@ -1,8 +1,7 @@
 from django import forms
 from control.models import GetQuote
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Div, Column, Row
 
+# forms 
 
 class ReceiverInfoForm(forms.ModelForm):
     class Meta:
@@ -33,27 +32,23 @@ class ShipmentInfoForm(forms.ModelForm):
         model = GetQuote
         fields = ['content', 'qnty', 'shipped_from', 'shipped_to', 'expected_shipping_date', 'expected_arrival_date', 'estimated_budget', 'additional_info']
 
-    def __init__(self, *args, **kwargs):
-        super(ShipmentInfoForm, self).__init__(*args, **kwargs)
-
-        self.helper = FormHelper(self)
-        self.helper.layout = Layout(
-            Row(
-                Column('content', css_class='col-md-4'),
-                Column('qnty', css_class='col-md-4'),
-                Column('shipped_to', css_class='col-md-4'),
-            ),
-            Row(
-                Column('shipped_from', css_class='col-md-4'),
-                Column('expected_shipping_date', css_class='col-md-4'),
-                Column('expected_arrival_date', css_class='col-md-4'),
-            ),
-            Row(
-                Column('estimated_budget', css_class='col-md-4'),
-                Column('additional_info', css_class='col-md-6'),
-            ),
-            Submit('submit', u'Add Park', css_class='btn btn-light btn-lg'),
-        )
-        
-
-
+        widgets = {
+            'content': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': 'Content Of Shipment'}),
+            'qnty': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': 'Quantity'}),
+            'shipped_from': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': 'Location Shipped From i.e USA'}),
+            'shipped_to': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': 'Location Shipped To i.e Kenya'}),
+            'expected_shipping_date': forms.DateInput(attrs={
+                'class': 'form-control',  
+                'style': 'max-width: 600px', 
+                'placeholder': 'Expected Shipping Date', 
+                'type': 'date'  # HTML5 date picker
+            }),
+            'expected_arrival_date': forms.DateInput(attrs={
+                'class': 'form-control',  
+                'style': 'max-width: 600px', 
+                'placeholder': 'Expected Arrival Date', 
+                'type': 'date'  # HTML5 date picker
+            }),
+            'estimated_budget': forms.TextInput(attrs={'class': 'form-control',  'style': 'max-width: 600px', 'placeholder': 'Estimated Budget in USD'}),
+            'additional_info': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Please, provide any additional information(if any)...............'}),
+        }
