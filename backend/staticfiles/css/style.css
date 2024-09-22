@@ -224,7 +224,7 @@ button {
 
   .step:last-child::before {
     right: 50%;
-    width: 2%; /* End line halfway at the last circle */
+    width: 25%; /* End line halfway at the last circle */
   }
 
   .step p {

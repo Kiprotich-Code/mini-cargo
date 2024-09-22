@@ -1,3 +1,4 @@
+/*global $ */
 const charts = document.querySelectorAll(".chart");
 
 charts.forEach(function (chart) {

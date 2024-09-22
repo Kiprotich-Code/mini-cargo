@@ -70,23 +70,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',  # Use the PostgreSQL backend
-#         'NAME': 'railway',  # The name of the database
-#         'USER': 'postgres',  # Database user
-#         'PASSWORD': 'cjLZsFsCvResSqipSLoXCWfEyrPHhFii',  # Password for the database user
-#         'HOST': 'junction.proxy.rlwy.net',  # Database host
-#         'PORT': '22050',  # Port number
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # Use the PostgreSQL backend
+        'NAME': 'railway',  # The name of the database
+        'USER': 'postgres',  # Database user
+        'PASSWORD': 'cjLZsFsCvResSqipSLoXCWfEyrPHhFii',  # Password for the database user
+        'HOST': 'junction.proxy.rlwy.net',  # Database host
+        'PORT': '22050',  # Port number
+    }
+}
 
 
 
@@ -127,6 +127,7 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
