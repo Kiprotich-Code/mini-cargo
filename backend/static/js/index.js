@@ -1,4 +1,4 @@
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -42,7 +42,7 @@
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+    navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');
       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
@@ -110,7 +110,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -136,4 +136,59 @@
 
 })();
 
+// 'DOMContentLoaded', 
+// STEPPER 
+document.addEventListener('DOMContentLoaded', () => {
+  const trackButton = document.getElementById('track-btn');
+  const trackingInput = document.getElementById('tracking-id-input');
 
+  trackButton?.addEventListener('click', () => {
+    const trackingId = trackingInput?.value;
+
+    if (trackingId) {
+      fetch(`/track-shipment/?tracking_no=${trackingId}`)
+        .then(response => response.json())
+        .then(data => {
+          const status = data?.status;
+          if (status) {
+            updateStepper(status);
+          } else {
+            console.error('No status found in the response.');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+      alert('Please enter a tracking ID.');
+    }
+  });
+});
+
+
+function updateStepper(status) {
+  const stepperContainer = document.getElementById('stepper-container');
+  let stepperHTML = `
+      <div class="stepper">
+          <div class="step ${status === 'Picked Up' || status === 'Processing' || status === 'In Transit' || status === 'On Hold' || status === 'Delivered' ? 'completed' : ''}">
+              <div class="circle"><i class="fa fa-cube"></i></div>
+              <p>Picked Up</p>
+          </div>
+          <div class="step ${status === 'Processing' || status === 'In Transit' || status === 'On Hold' || status === 'Delivered' ? 'completed' : ''}">
+              <div class="circle"><i class="fa fa-cogs"></i></div>
+              <p>Processing</p>
+          </div>
+          <div class="step ${status === 'In Transit' || status === 'On Hold' || status === 'Delivered' ? 'completed' : ''}">
+              <div class="circle"><i class="fa fa-truck"></i></div>
+              <p>In Transit</p>
+          </div>
+          <div class="step ${status === 'On Hold' || status === 'Delivered' ? 'completed' : ''}">
+              <div class="circle"><i class="fa fa-pause"></i></div>
+              <p>On Hold</p>
+          </div>
+          <div class="step ${status === 'Delivered' ? 'completed' : ''}">
+              <div class="circle"><i class="fa fa-check-circle"></i></div>
+              <p>Delivered</p>
+          </div>
+      </div>
+  `;
+  stepperContainer.innerHTML = stepperHTML;
+}

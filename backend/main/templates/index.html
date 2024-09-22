@@ -134,7 +134,7 @@
       <div class="p-3 border m-3 d-md-flex justify-content-center">
         <form method="GET" class="form-search w-100 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200"
           style="max-width: 800px;">
-          <input type="text" name="tracking_no" class="form-control form-control-lg me-2"
+          <input type="text" name="tracking_no" class="form-control form-control-lg me-2" id="tracking-id-input"
             placeholder="Enter Your Tracking No"
             style="border-radius: 30px 0 0 30px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
           <button type="submit" class="btn btn-primary btn-lg"
@@ -366,7 +366,7 @@
               <div class="card-img">
                 <img src="{% static 'img/service-3.jpg' %}" alt="" class="img-fluid">
               </div>
-              <h3><a href="#" class="stretched-link">Cargo</a></h3>
+              <h3><a href="" class="stretched-link">Cargo</a></h3>
               <p> Whether you’re shipping small
                 packages or oversized freight, we ensure your goods are properly managed and securely transported from
                 start to finish.</p>
@@ -589,8 +589,7 @@
 
   <!-- Preloader -->
   <div id="preloader"></div>
-
-
+  
   <!-- vd JS Files -->
   <script src="{% static 'vd/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'vd/php-email-form/validate.js' %}"></script>
@@ -601,8 +600,6 @@
 
   <!-- Main JS File -->
   <script src="{% static 'js/index.js' %}"></script>
-  <script src="{% static 'js/script.js' %}"></script>
-
 </body>
 
 </html>
