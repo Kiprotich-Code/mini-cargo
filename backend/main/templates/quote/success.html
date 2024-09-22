@@ -1,1 +1,15 @@
-<div>Success</div>
+{% extends '../index.html' %}
+
+{% block content %}
+<section id="hero" class="section dark-background">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="col col-md-5 p-3 rounded mt-4">
+            <div class="container">
+                <h2>Quote Request Successfully Submitted!</h2>
+                <p class="fw-lighter">Thanks for submitting your quote and welcome to our family. We'll send a confirmation email shortly
+                    to the email you provided. You can look around while you wait ^ Admin.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

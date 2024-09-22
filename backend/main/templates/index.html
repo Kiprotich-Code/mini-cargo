@@ -421,8 +421,8 @@
             <div class="text-center">
               <h3>Get Started Today</h3>
               <p>Ready to experience seamless cargo tracking and efficient shipping services? </p>
-              <p>Sign up now and take control of your shipments with ease</p>
-              <a class="cta-btn" href="{% url 'login' %}">Join Us</a>
+              <p>Send a quote now and receive an instant response.</p>
+              <a class="cta-btn" href="{% url 'receiver_info' %}">Get Quote</a>
             </div>
           </div>
         </div>
@@ -542,9 +542,9 @@
         <div class="col-lg-2 col-6 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About us</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'home' %}#about">About us</a></li>
+            <li><a href="{% url 'home' %}#services">Services</a></li>
             <li><a href="">Terms of service</a></li>
             <li><a href="{% url 'dashboard' %}">Admin Portal</a></li>
           </ul>
@@ -553,11 +553,11 @@
         <div class="col-lg-2 col-6 footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li><a href="#services">Cargo</a></li>
-            <li><a href="#services">Storage</a></li>
-            <li><a href="#services">Packaging</a></li>
-            <li><a href="#services">Warehousing</a></li>
-            <li><a href="#services">Logistics</a></li>
+            <li><a href="{% url 'home' %}#services">Cargo</a></li>
+            <li><a href="{% url 'home' %}#services">Storage</a></li>
+            <li><a href="{% url 'home' %}#services">Packaging</a></li>
+            <li><a href="{% url 'home' %}#services">Warehousing</a></li>
+            <li><a href="{% url 'home' %}#services">Logistics</a></li>
           </ul>
         </div>
 
@@ -586,6 +586,7 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
+  
   <!-- vd JS Files -->
   <script src="{% static 'vd/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'vd/php-email-form/validate.js' %}"></script>
