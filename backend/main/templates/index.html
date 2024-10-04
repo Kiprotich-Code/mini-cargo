@@ -120,7 +120,7 @@
           </div>
 
           <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src="{% static 'img/hero-img.svg' %}" class="img-fluid mb-3 mb-lg-0" alt="">
+            <img src="{% static 'img/service-6.jpg' %}" class="img-fluid mb-3 mb-lg-0 rounded" alt="cargo tracking warehouse" style="width: 100%; height: 100%;">
           </div>
 
         </div>
@@ -175,7 +175,7 @@
 
 
           {% if status %}
-          <div class="mt-5 bg-dark p-3 text-white rounded d-none d-sm-block">
+          <div class="mt-5 bg-dark p-3 text-white rounded">
             <div class="stepper">
               <div
                 class="step {% if status == 'Picked Up' or status == 'Processing' or status == 'In Transit' or status == 'On Hold' or status == 'Delivered' %}completed{% endif %}">
