@@ -1,0 +1,151 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title># 1 Global, Fast and Secure Shipment Tracking Company</title>
+  <meta name="description" content="Unlock seamless logistics with our global shipment tracking services. Achieve 50% fewer tracking errors and monitor your deliveries effortlessly. Partner with us for accurate, secure, and fast shipping solutions.">
+  <meta name="keywords" content="Global Shipment Tracking, Real-Time Shipping Updates, Secure Delivery Solutions, Fast and Reliable Logistics, Accurate Package Tracking, Cost-Effective Shipping Solutions, Effortless Shipment Monitoring, Transparent Delivery Process, Advanced Tracking Technology, Dependable Logistics Partner">
+
+  <!-- Favicons -->
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- vd CSS Files -->
+  <link href="{% static 'vd/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vd/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vd/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vd/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vd/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vd/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'css/stepper.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'img/logo.png" alt=""> -->
+        <h1 class="sitename">Narok Line Services</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{% url 'home' %}" class="active">Home<br></a></li>
+          <li><a href="{% url 'home' %}#about">About</a></li>
+          <li><a href="{% url 'home' %}#services">Services</a></li>
+          <li><a href="{% url 'home' %}#call-to-action">Get Started</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="{% url 'login' %}">Login</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+    {% block content %}
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'img/world-dotted-map.png' %}" alt="" class="hero-bg" data-aos="fade-in">
+
+      <div class="container">
+        <div class="row gy-4 d-flex justify-content-between">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h2 data-aos="fade-up">Your Lightning Fast Delivery Partner</h2>
+            <p data-aos="fade-up" data-aos-delay="100"> Whether you're managing one package or
+              multiple deliveries, our reliable tracking system gives you peace of mind and complete control over your
+              shipments. Effortless, fast, and secure – take charge of your cargo with just a few clicks.</p>
+
+            <form method="GET" class="form-search d-flex align-items-stretch mb-3" data-aos="fade-up"
+              data-aos-delay="200">
+              <input type="text" name="tracking_no" class="form-control" placeholder="Enter Your Tracking No ">
+              <button type="submit" class="btn btn-primary">Track</button>
+            </form>
+
+            <div class="row gy-4" data-aos="fade-up" data-aos-delay="300">
+
+              <div class="col-lg-3 col-6">
+                <div class="stats-item text-center w-100 h-100">
+                  <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="0"
+                    class="purecounter">232</span>
+                  <p>Clients</p>
+                </div>
+              </div><!-- End Stats Item -->
+
+              <div class="col-lg-3 col-6">
+                <div class="stats-item text-center w-100 h-100">
+                  <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="0"
+                    class="purecounter">521</span>
+                  <p>Deliveries</p>
+                </div>
+              </div><!-- End Stats Item -->
+
+              <div class="col-lg-3 col-6">
+                <div class="stats-item text-center w-100 h-100">
+                  <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="0"
+                    class="purecounter">1453</span>
+                  <p>Shipments</p>
+                </div>
+              </div><!-- End Stats Item -->
+
+              <div class="col-lg-3 col-6">
+                <div class="stats-item text-center w-100 h-100">
+                  <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="0"
+                    class="purecounter">32</span>
+                  <p>Companies</p>
+                </div>
+              </div><!-- End Stats Item -->
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+            <img src="{% static 'img/service-6.jpg' %}" class="img-fluid mb-3 mb-lg-0 rounded" alt="cargo tracking warehouse" style="width: 100%; height: 100%;">
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+    {% endblock %}
+  </main>
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+  
+  <!-- vd JS Files -->
+  <script src="{% static 'vd/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vd/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'vd/aos/aos.js' %}"></script>
+  <script src="{% static 'vd/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'vd/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vd/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/index.js' %}"></script>
+</body>
+
+</html>
